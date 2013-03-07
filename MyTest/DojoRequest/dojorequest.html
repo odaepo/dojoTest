@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo: dojo/request/xhr</title>
+    <link rel="stylesheet" href="demo.css">
+    <script>
+        // Instead of using data-dojo-config, we’re creating a dojoConfig object
+        // *before* we load dojo.js; they’re functionally identical.
+        var dojoConfig = {
+            async:true,
+        };
+    </script>
+</head>
+<body>
+
+<!-- load dojo and provide config via data attribute -->
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js" data-dojo-config="isDebug:1, async:1"></script>
+
+
+
+
+<h1>Demo: dojo/request/xhr</h1>
+
+
+<p>Click the button below to see dojo/request/xhr in action.</p>
+<div>
+    <button id="textButton">Request Text File</button>
+</div>
+
+<br /><br />
+<div id="resultDiv">
+</div>
+
+
+
+<script>
+    require(["dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+            function(dom, on, request){
+                // Results will be displayed in resultDiv
+                var resultDiv = dom.byId("resultDiv");
+
+                // Attach the onclick event handler to the textButton
+                on(dom.byId('textButton'), "click", function(evt){
+                    // Request the text file
+                    request.get("displayForm.php").then(
+                            function(response){
+                                // Display the text file content
+                                resultDiv.innerHTML = "<pre>" + response + "</pre>";
+                            },
+                            function(error){
+                                // Display the error returned
+                                resultDiv.innerHTML = "<div class=\"error\">" + error + "<div>";
+                            }
+                    );
+                });
+            }
+    );
+</script>
+
+
+
+
+
+
+<button id="fadeOutButton">Fade block out</button>
+<button id="fadeInButton">Fade block in</button>
+<button id="combineButton">combine</button>
+
+
+<div id="fadeTarget" class="red-block">
+    A red block
+</div>
+<script>
+    require(["dojo/_base/fx", "dojo/on", "dojo/dom", "dojo/domReady!"], function(fx, on, dom) {
+        var fadeOutButton = dom.byId("fadeOutButton"),
+            fadeInButton = dom.byId("fadeInButton"),
+            fadeTarget = dom.byId("fadeTarget"),
+            combineButton = dom.byId("combineButton"),
+            resultDiv = dom.byId("resultDiv");
+
+        on(fadeOutButton, "click", function(evt){
+            fx.fadeOut({ node: fadeTarget }).play();
+        });
+        on(fadeInButton, "click", function(evt){
+            fx.fadeIn({ node: fadeTarget }).play();
+        });
+
+        on(combineButton, "click", function(evt){
+            fx.fadeOut({ node: fadeTarget,duration: 5000 }).play();
+            fadeTarget.innerHTML = "<pre>My text</pre>";
+            fx.fadeIn({ node: fadeTarget,duration: 5000 }).play();
+        });
+
+
+
+    });
+</script>
+
+
+
+
+</body>
+</html>
