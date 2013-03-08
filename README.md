@@ -5,4 +5,4 @@ for  "Hello Dojo!" you can see     DojoDocumentation/HelloDojo
 
 In MyTest you can find some test on using dojo:
 
-MyTest/DojoRequest: some simple code about ddojo/request
+MyTest/DojoRequest: some simple code about ddojo/request  and FadeIn/FadeOut  effect.
